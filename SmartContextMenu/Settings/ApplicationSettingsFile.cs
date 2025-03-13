@@ -19,28 +19,29 @@ namespace SmartContextMenu.Settings
             {
                 return ReadFromCurrentDirectoryFile();
             }
-            else if (GetProfileFile().Exists)
-            {
-                return ReadFromProfileFile();
-            }
+           // else if (GetProfileFile().Exists)
+           // {
+           //     return ReadFromProfileFile();
+           // }
             else
             {
                 var settings = ReadFromResources();
-                SaveToProfileFile(settings);
+                //SaveToProfileFile(settings);
+                SaveToCurrentDirectoryFile(settings);
                 return settings;
             }
         }
 
         public static void Save(ApplicationSettings settings)
         {
-            if (GetCurrentDirectoryFile().Exists)
-            {
+            //if (GetCurrentDirectoryFile().Exists)
+            //{
                 SaveToCurrentDirectoryFile(settings);
-            }
-            else
-            {
-                SaveToProfileFile(settings);
-            }
+            //}
+            //else
+            //{
+            //    SaveToProfileFile(settings);
+            //}
         }
 
         private static FileInfo GetCurrentDirectoryFile()
@@ -51,7 +52,7 @@ namespace SmartContextMenu.Settings
 
         private static FileInfo GetProfileFile()
         {
-            var directoryName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AssemblyUtils.AssemblyTitle, AssemblyUtils.AssemblyProductVersion);
+            var directoryName = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData), AssemblyUtils.AssemblyTitle/*, AssemblyUtils.AssemblyProductVersion*/);
             var fileName = Path.Combine(directoryName, $"{AssemblyUtils.AssemblyTitle}.xml");
             return new FileInfo(fileName);
         }
